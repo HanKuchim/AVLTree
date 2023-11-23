@@ -10,6 +10,8 @@ namespace AVLTreeLibrary
     {
         private AVLNode root;
 
+        public AVLNode Root { get { return root; } }
+
         public void Insert(int key)
         {
             root = Insert(root, key);
@@ -138,33 +140,6 @@ namespace AVLTreeLibrary
 
             return node;
         }
-
-        private bool Find(AVLNode node, int key)
-        {
-            if (node == null)
-                return false;
-
-            if (key == node.Key)
-                return true;
-
-            if (key < node.Key)
-                return Find(node.Left, key);
-
-            return Find(node.Right, key);
-        }
-
-        private void Print(AVLNode node, int level)
-        {
-            if (node == null)
-                return;
-
-            Print(node.Right, level + 1);
-
-            Console.WriteLine(new string(' ', 4 * level) + node.Key);
-
-            Print(node.Left, level + 1);
-        }
-
         private int Height(AVLNode node)
         {
             return (node != null) ? node.Height : 0;
@@ -201,6 +176,53 @@ namespace AVLTreeLibrary
             y.Height = Math.Max(Height(y.Left), Height(y.Right)) + 1;
 
             return y;
+        }
+        private bool Find(AVLNode node, int key)
+        {
+            if (node == null)
+                return false;
+
+            if (key == node.Key)
+                return true;
+
+            if (key < node.Key)
+                return Find(node.Left, key);
+
+            return Find(node.Right, key);
+        }
+        
+
+
+        private void Print(AVLNode node, int level)
+        {
+            if (node == null)
+                return;
+
+            Print(node.Right, level + 1);
+
+            Console.WriteLine(new string(' ', 4 * level) + node.Key);
+
+            Print(node.Left, level + 1);
+        }
+        
+        //для впф приложения
+        public List<string> GetTreeAsStringList()
+        {
+            List<string> result = new List<string>();
+            GetTreeAsStringList(root, 0, result);
+            return result;
+        }
+
+        public void GetTreeAsStringList(AVLNode node, int level, List<string> result)
+        {
+            if (node == null)
+                return;
+
+            GetTreeAsStringList(node.Right, level + 1, result);
+
+            result.Add(new string(' ', 4 * level) + node.Key);
+
+            GetTreeAsStringList(node.Left, level + 1, result);
         }
 
         private AVLNode MinValueNode(AVLNode node)

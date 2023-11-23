@@ -23,7 +23,7 @@ namespace Test
             tree.Print();
 
             tree += 1;
-            Console.WriteLine("Tree after +");
+            Console.WriteLine("Tree after +1");
             tree.Print();
 
             AVLTree tree2 = new AVLTree();
@@ -36,7 +36,6 @@ namespace Test
             AVLTree mergedTree = tree + tree2;
             Console.WriteLine("Merget trees");
             mergedTree.Print();
-
         }
     }
 }
